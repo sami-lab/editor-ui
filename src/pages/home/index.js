@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Button, Grid, IconButton, Stack, useTheme } from "@mui/material";
 import Header from "../../reusable/header";
-import Sidebar from "../../pagesComponent/main/sidebar/";
+import Navigator from "../../pagesComponent/main/navigator";
 import Editor from "../../pagesComponent/main/editor/";
 import Results from "../../pagesComponent/main/results/";
+import Database from "../../pagesComponent/main/database/";
 
 export default function index() {
   const theme = useTheme();
   const drawerWidth = 356;
-  const [showSideBar, setShowSideBar] = useState(true);
+  const [showNavigator, setShowNavigator] = useState(true);
   const [showEditor, setShowEditor] = useState(true);
   const [showResult, setShowResult] = useState(true);
   const [showDatabase, setShowDatabase] = useState(true);
@@ -38,7 +39,7 @@ export default function index() {
                   viewBox='0 0 12 10'
                 >
                   <path
-                    fill={showSideBar ? "#fff" : theme.palette.primary.main}
+                    fill={showNavigator ? "#fff" : theme.palette.primary.main}
                     d='M0 10V8.75h12V10H0zm0-4.375v-1.25h12v1.25H0zM0 1.25V0h12v1.25H0z'
                   ></path>
                 </svg>
@@ -46,19 +47,19 @@ export default function index() {
               sx={{
                 fontWeight: 500,
                 fontSize: "12px",
-                color: showSideBar ? "#fff" : theme.palette.primary.main,
-                background: showSideBar
+                color: showNavigator ? "#fff" : theme.palette.primary.main,
+                background: showNavigator
                   ? theme.palette.primary.main
                   : "transparent",
                 "&:hover": {
-                  color: showSideBar ? "#fff" : theme.palette.primary.main,
-                  background: showSideBar
+                  color: showNavigator ? "#fff" : theme.palette.primary.main,
+                  background: showNavigator
                     ? theme.palette.primary.main
                     : "transparent",
                 },
                 px: "20px",
               }}
-              onClick={() => setShowSideBar((s) => !s)}
+              onClick={() => setShowNavigator((s) => !s)}
             >
               Navigator
             </Button>
@@ -230,12 +231,12 @@ export default function index() {
         <Header />
       </Grid>
       {/* table */}
-      <Grid item style={{ width: "100%", height: "calc(100vh - 88px)" }}>
+      <Grid item style={{ width: "100%", height: "calc(100vh - 87.7px)" }}>
         <Grid container wrap='nowrap' style={{ height: "100%" }}>
           {/* for sidebar */}
-          {showSideBar && (
+          {showNavigator && (
             <Grid item sx={{ display: "flex", minWidth: drawerWidth }}>
-              <Sidebar drawerWidth={drawerWidth} open={showSideBar} />
+              <Navigator drawerWidth={drawerWidth} open={showNavigator} />
             </Grid>
           )}
           {/* for editor, results */}
@@ -256,6 +257,11 @@ export default function index() {
               )}
             </Grid>
           </Grid>
+          {showDatabase && (
+            <Grid item sx={{ display: "flex", minWidth: drawerWidth }}>
+              <Database drawerWidth={drawerWidth} open={showDatabase} />
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </Grid>

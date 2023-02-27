@@ -34,6 +34,7 @@ export default function Sidebar({ drawerWidth, open }) {
           width: drawerWidth,
           boxSizing: "border-box",
           marginTop: "87.7px",
+          pb: "100px",
         },
       }}
       variant='persistent'
