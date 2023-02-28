@@ -245,7 +245,7 @@ export default function index() {
           {showNavigator && (
             <Grid item style={{ display: "flex" }}>
               <Resizable
-                style={{ zIndex: 1000 }}
+                style={{ zIndex: 1100 }}
                 size={{ width: navigatorWidth, height: "100%" }}
                 enable={{ right: true, left: false, top: false, bottom: false }}
                 onResizeStop={(e, direction, ref, d) => {
