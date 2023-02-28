@@ -16,7 +16,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Stack } from "@mui/system";
 import SidebarMenu from "./sidebarMenu";
 import { Resizable } from "re-resizable";
-
+//import "./scroll.css";
 const sampleMyPins = [
   {
     id: "1",
@@ -65,7 +65,7 @@ const addMenuOptions = ["New Folder", "New Worksheet"];
 const moreMenuOptions = ["Rename", "Duplicate", "Delete", "Move"];
 export default function Sidebar0() {
   const theme = useTheme();
-  const [worksheetItemsHeight, setworksheetItemsHeight] = useState("10vh");
+  const [worksheetItemsHeight, setworksheetItemsHeight] = useState("25vh");
 
   const [selectedPin, setSelectedPin] = useState(0);
   const [searchPin, setSearchPin] = useState("");
@@ -89,7 +89,10 @@ export default function Sidebar0() {
           top: false,
           bottom: true,
         }}
-        minHeight={"10vh"}
+        className='scrollable-element'
+        style={{
+          overflowY: "auto",
+        }}
         maxHeight={"70vh"}
         onResizeStop={(e, direction, ref, d) => {
           setworksheetItemsHeight((w) => w + d.height);
@@ -267,8 +270,9 @@ export default function Sidebar0() {
           />
         </Grid>
       )}
+
       {/* </Resizable> */}
-      <Grid item sx={{ mt: "22px" }}>
+      <Grid item>
         <Divider />
       </Grid>
 

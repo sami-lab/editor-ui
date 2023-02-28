@@ -243,8 +243,9 @@ export default function index() {
         <Grid container wrap='nowrap' style={{ height: "100%" }}>
           {/* for sidebar */}
           {showNavigator && (
-            <Grid item sx={{ display: "flex" }}>
+            <Grid item style={{ display: "flex" }}>
               <Resizable
+                style={{ zIndex: 1000 }}
                 size={{ width: navigatorWidth, height: "100%" }}
                 enable={{ right: true, left: false, top: false, bottom: false }}
                 onResizeStop={(e, direction, ref, d) => {
@@ -276,6 +277,7 @@ export default function index() {
               {showResult && (
                 <Grid item sx={{ width: "100%" }}>
                   <Resizable
+                    style={{ zIndex: 1000 }}
                     size={{ width: "100%", height: resultsHeight }}
                     enable={{
                       right: false,
@@ -300,6 +302,7 @@ export default function index() {
           {showDatabase && (
             <Grid item sx={{ display: "flex" }}>
               <Resizable
+                style={{ zIndex: 1000 }}
                 size={{ width: databaseWidth, height: "100%" }}
                 enable={{ right: false, left: true, top: false, bottom: false }}
                 onResizeStop={(e, direction, ref, d) => {
