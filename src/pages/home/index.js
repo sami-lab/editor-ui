@@ -12,8 +12,10 @@ export default function index() {
   const theme = useTheme();
   const navigatorMinWidth = 356;
   const databaseMinWidth = 356;
+  const databaseMinHeight = 250;
   const [navigatorWidth, setNavigatorWidth] = React.useState(navigatorMinWidth);
   const [databaseWidth, setDatabaseWidth] = React.useState(databaseMinWidth);
+  const [resultsHeight, setResultsHeight] = React.useState(databaseMinHeight);
 
   const [showNavigator, setShowNavigator] = useState(true);
   const [showEditor, setShowEditor] = useState(true);
@@ -273,7 +275,24 @@ export default function index() {
               </Grid>
               {showResult && (
                 <Grid item sx={{ width: "100%" }}>
-                  <Results showEditor={showEditor} />
+                  <Resizable
+                    size={{ width: "100%", height: resultsHeight }}
+                    enable={{
+                      right: false,
+                      left: false,
+                      top: true,
+                      bottom: false,
+                    }}
+                    maxHeight={showEditor ? "60vh" : "calc(100vh - 87.7px)"}
+                    onResizeStop={(e, direction, ref, d) => {
+                      setResultsHeight((w) => w + d.height);
+                    }}
+                  >
+                    <Results
+                      resultsHeight={resultsHeight}
+                      showEditor={showEditor}
+                    />
+                  </Resizable>
                 </Grid>
               )}
             </Grid>
