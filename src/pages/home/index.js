@@ -6,9 +6,15 @@ import Editor from "../../pagesComponent/main/editor/";
 import Results from "../../pagesComponent/main/results/";
 import Database from "../../pagesComponent/main/database/";
 
+import { Resizable } from "re-resizable";
+
 export default function index() {
   const theme = useTheme();
-  const drawerWidth = 356;
+  const navigatorMinWidth = 356;
+  const databaseMinWidth = 356;
+  const [navigatorWidth, setNavigatorWidth] = React.useState(navigatorMinWidth);
+  const [databaseWidth, setDatabaseWidth] = React.useState(databaseMinWidth);
+
   const [showNavigator, setShowNavigator] = useState(true);
   const [showEditor, setShowEditor] = useState(true);
   const [showResult, setShowResult] = useState(true);
@@ -235,8 +241,16 @@ export default function index() {
         <Grid container wrap='nowrap' style={{ height: "100%" }}>
           {/* for sidebar */}
           {showNavigator && (
-            <Grid item sx={{ display: "flex", minWidth: drawerWidth }}>
-              <Navigator drawerWidth={drawerWidth} open={showNavigator} />
+            <Grid item sx={{ display: "flex" }}>
+              <Resizable
+                size={{ width: navigatorWidth, height: "100%" }}
+                enable={{ right: true, left: false, top: false, bottom: false }}
+                onResizeStop={(e, direction, ref, d) => {
+                  setNavigatorWidth((w) => w + d.width);
+                }}
+              >
+                <Navigator drawerWidth={"inherit"} open={showNavigator} />
+              </Resizable>
             </Grid>
           )}
           {/* for editor, results */}
@@ -260,8 +274,16 @@ export default function index() {
             </Grid>
           </Grid>
           {showDatabase && (
-            <Grid item sx={{ display: "flex", minWidth: drawerWidth }}>
-              <Database drawerWidth={drawerWidth} open={showDatabase} />
+            <Grid item sx={{ display: "flex" }}>
+              <Resizable
+                size={{ width: databaseWidth, height: "100%" }}
+                enable={{ right: false, left: true, top: false, bottom: false }}
+                onResizeStop={(e, direction, ref, d) => {
+                  setDatabaseWidth((w) => w + d.width);
+                }}
+              >
+                <Database drawerWidth={"inherit"} open={showDatabase} />
+              </Resizable>
             </Grid>
           )}
         </Grid>
