@@ -255,7 +255,12 @@ export default function index() {
           )}
           {/* for editor, results */}
           <Grid item sx={{ display: "flex", flex: 1, overflowX: "auto" }}>
-            <Grid container direction={"column"} sx={{ height: "100%" }}>
+            <Grid
+              container
+              direction={"column"}
+              flexWrap='nowrap'
+              sx={{ height: "100%", width: "100%" }}
+            >
               {/* editor */}
               {showEditor && (
                 <Grid item sx={{ width: "100%", flex: 1 }}>
@@ -265,12 +270,12 @@ export default function index() {
               {/* hide and show */}
               <Grid item sx={{ width: "100%" }}>
                 {showHideTabs}
-                {showResult && (
-                  <Grid item sx={{ width: "100%" }}>
-                    <Results showEditor={showEditor} />
-                  </Grid>
-                )}
               </Grid>
+              {showResult && (
+                <Grid item sx={{ width: "100%" }}>
+                  <Results showEditor={showEditor} />
+                </Grid>
+              )}
             </Grid>
           </Grid>
           {showDatabase && (
