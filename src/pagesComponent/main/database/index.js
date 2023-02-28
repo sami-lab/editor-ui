@@ -10,6 +10,8 @@ import {
   IconButton,
 } from "@mui/material";
 import SidebarMenu from "../navigator/sidebarMenu";
+import { Resizable } from "re-resizable";
+import "../navigator/scroll.css";
 const sampleDatabases = [
   {
     id: "1",
@@ -75,6 +77,9 @@ const sampleCustomers = [
 ];
 export default function Sidebar({ drawerWidth, open }) {
   const theme = useTheme();
+  const [databaseHeight, setDatabaseHeight] = useState("20vh");
+  const [customersHeight, setCustomersHeight] = useState("20vh");
+
   const [selectedPin, setSelectedPin] = useState(0);
   const [databaseName, setDatabaseName] = useState("Access_History");
   const [databaseList, setDatabaseList] = useState(sampleDatabases);
@@ -99,102 +104,139 @@ export default function Sidebar({ drawerWidth, open }) {
       open={open}
     >
       <Grid container direction='column'>
-        {/* tabs */}
-        <Grid item sx={{ width: "100%" }}>
-          <Tabs
-            value={0}
-            onChange={(event, newValue) => {}}
-            TabIndicatorProps={{
-              style: { display: "none" },
-            }}
-            textColor='inherit'
-            aria-label='full width tabs example'
-            sx={{ borderBottom: "1px solid rgba(0, 0, 0, 0.12)" }}
-          >
-            <Tab
-              label={
+        <Resizable
+          size={{ width: "100%", height: databaseHeight }}
+          enable={{
+            right: false,
+            left: false,
+            top: false,
+            bottom: true,
+          }}
+          className='scrollable-element'
+          style={{
+            overflowY: "auto",
+          }}
+          maxHeight={"70vh"}
+          onResizeStop={(e, direction, ref, d) => {
+            setDatabaseHeight((w) => w + d.height);
+          }}
+        >
+          {/* tabs */}
+          <Grid item sx={{ width: "100%" }}>
+            <Tabs
+              value={0}
+              onChange={(event, newValue) => {}}
+              TabIndicatorProps={{
+                style: { display: "none" },
+              }}
+              textColor='inherit'
+              aria-label='full width tabs example'
+              sx={{ borderBottom: "1px solid rgba(0, 0, 0, 0.12)" }}
+            >
+              <Tab
+                label={
+                  <Typography
+                    variant='body2'
+                    sx={{
+                      fontWeight: 500,
+                      color: "rgba(0, 0, 0, 0.54)",
+                    }}
+                  >
+                    Database
+                  </Typography>
+                }
+              />
+            </Tabs>
+          </Grid>
+          {/* selectedPin */}
+          <Grid item sx={{ mt: "22px", px: "16px" }}>
+            <Grid container sx={{ gap: "25px" }}>
+              <Grid item>
                 <Typography
-                  variant='body2'
+                  variant='small'
                   sx={{
+                    lineHeight: "36px",
                     fontWeight: 500,
-                    color: "rgba(0, 0, 0, 0.54)",
+                    textTransform: "uppercase",
+                    cursor: "pointer",
+                    color:
+                      selectedPin === 0
+                        ? theme.palette.primary.main
+                        : "rgba(0, 0, 0, 0.26)",
                   }}
+                  onClick={() => setSelectedPin(0)}
                 >
-                  Database
+                  my PinNed
                 </Typography>
-              }
-            />
-          </Tabs>
-        </Grid>
-        {/* selectedPin */}
-        <Grid item sx={{ mt: "22px", px: "16px" }}>
-          <Grid container sx={{ gap: "25px" }}>
-            <Grid item>
-              <Typography
-                variant='small'
-                sx={{
-                  lineHeight: "36px",
-                  fontWeight: 500,
-                  textTransform: "uppercase",
-                  cursor: "pointer",
-                  color:
-                    selectedPin === 0
-                      ? theme.palette.primary.main
-                      : "rgba(0, 0, 0, 0.26)",
-                }}
-                onClick={() => setSelectedPin(0)}
-              >
-                my PinNed
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography
-                variant='small'
-                sx={{
-                  lineHeight: "36px",
-                  fontWeight: 500,
-                  textTransform: "uppercase",
-                  cursor: "pointer",
-                  color:
-                    selectedPin === 1
-                      ? theme.palette.primary.main
-                      : "rgba(0, 0, 0, 0.26)",
-                }}
-                onClick={() => setSelectedPin(1)}
-              >
-                Team’s PinNed
-              </Typography>
+              </Grid>
+              <Grid item>
+                <Typography
+                  variant='small'
+                  sx={{
+                    lineHeight: "36px",
+                    fontWeight: 500,
+                    textTransform: "uppercase",
+                    cursor: "pointer",
+                    color:
+                      selectedPin === 1
+                        ? theme.palette.primary.main
+                        : "rgba(0, 0, 0, 0.26)",
+                  }}
+                  onClick={() => setSelectedPin(1)}
+                >
+                  Team’s PinNed
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        {/* selectedPin */}
-        <Grid item sx={{ mt: "4px", px: "16px" }}>
-          <Typography
-            variant='body1'
-            fontSize={15}
-            sx={{ lineHeight: "28px", color: "rgba(0, 0, 0, 0.87)" }}
-          >
-            {databaseName}
-          </Typography>
-        </Grid>
+          {/* selectedPin */}
+          <Grid item sx={{ mt: "4px", px: "16px", pb: "24px" }}>
+            <Typography
+              variant='body1'
+              fontSize={15}
+              sx={{ lineHeight: "28px", color: "rgba(0, 0, 0, 0.87)" }}
+            >
+              {databaseName}
+            </Typography>
+          </Grid>
+        </Resizable>
         {/* divider */}
-        <Grid item sx={{ mt: "24px", width: "100%" }}>
+        <Grid item sx={{ width: "100%" }}>
           <Divider />
         </Grid>
         {/* menus */}
-        <Grid item sx={{ mt: "22px", px: "8px" }}>
-          <SidebarMenu
-            items={databaseList}
-            activeItem={databaseActiveItem}
-            onItemSelect={(item) => setDatabaseActiveItem(item)}
-          />
-        </Grid>
+        <Resizable
+          size={{ width: "100%", height: customersHeight }}
+          enable={{
+            right: false,
+            left: false,
+            top: false,
+            bottom: true,
+          }}
+          className='scrollable-element'
+          style={{
+            overflowY: "auto",
+          }}
+          maxHeight={"70vh"}
+          onResizeStop={(e, direction, ref, d) => {
+            setCustomersHeight((w) => w + d.height);
+          }}
+        >
+          <Grid item sx={{ mt: "22px", pb: "24px", px: "8px" }}>
+            <SidebarMenu
+              items={databaseList}
+              activeItem={databaseActiveItem}
+              onItemSelect={(item) => setDatabaseActiveItem(item)}
+            />
+          </Grid>
+        </Resizable>
         {/* divider */}
-        <Grid item sx={{ mt: "24px", width: "100%" }}>
+        <Grid item sx={{ width: "100%" }}>
           <Divider />
         </Grid>
         {/* contomers */}
-        <Grid item sx={{ mt: "24px", px: "16px", width: "100%" }}>
+
+        <Grid item sx={{ pt: "24px", px: "16px", width: "100%" }}>
           <Grid
             container
             spacing={1}
