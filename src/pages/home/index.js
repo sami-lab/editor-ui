@@ -243,18 +243,20 @@ export default function index() {
           <Grid item sx={{ display: "flex", flex: 1, overflowX: "auto" }}>
             <Grid container direction={"column"} sx={{ height: "100%" }}>
               {/* editor */}
-              <Grid item sx={{ width: "100%", flex: 1 }}>
-                {showEditor && <Editor />}
-              </Grid>
+              {showEditor && (
+                <Grid item sx={{ width: "100%", flex: 1 }}>
+                  <Editor />
+                </Grid>
+              )}
               {/* hide and show */}
               <Grid item sx={{ width: "100%" }}>
                 {showHideTabs}
+                {showResult && (
+                  <Grid item sx={{ width: "100%" }}>
+                    <Results showEditor={showEditor} />
+                  </Grid>
+                )}
               </Grid>
-              {showResult && (
-                <Grid item sx={{ width: "100%" }}>
-                  <Results />
-                </Grid>
-              )}
             </Grid>
           </Grid>
           {showDatabase && (

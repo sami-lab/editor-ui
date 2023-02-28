@@ -13,6 +13,7 @@
     "@emotion/styled": "latest",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "latest",
+    "re-resizable": "^6.9.9",
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "latest",
