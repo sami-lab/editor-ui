@@ -15,6 +15,7 @@ import AddIcon from "@mui/icons-material/Add";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Stack } from "@mui/system";
 import SidebarMenu from "./sidebarMenu";
+import { Resizable } from "re-resizable";
 
 const sampleMyPins = [
   {
@@ -64,6 +65,8 @@ const addMenuOptions = ["New Folder", "New Worksheet"];
 const moreMenuOptions = ["Rename", "Duplicate", "Delete", "Move"];
 export default function Sidebar0() {
   const theme = useTheme();
+  const [worksheetItemsHeight, setworksheetItemsHeight] = useState("10vh");
+
   const [selectedPin, setSelectedPin] = useState(0);
   const [searchPin, setSearchPin] = useState("");
   const [anchorElSearchAdd, setAnchorElSearchAdd] = useState(null);
@@ -78,6 +81,20 @@ export default function Sidebar0() {
 
   return (
     <Grid container direction='column'>
+      {/* <Resizable
+        size={{ width: "100%", height: worksheetItemsHeight }}
+        enable={{
+          right: false,
+          left: false,
+          top: false,
+          bottom: true,
+        }}
+        minHeight={"10vh"}
+        maxHeight={"70vh"}
+        onResizeStop={(e, direction, ref, d) => {
+          setworksheetItemsHeight((w) => w + d.height);
+        }}
+      > */}
       {/* pins tabs */}
       <Grid item sx={{ mt: "22px", px: "8px" }}>
         <Grid container sx={{ pl: "12px", gap: "5px" }}>
@@ -231,6 +248,7 @@ export default function Sidebar0() {
           </Grid>
         </Grid>
       </Grid>
+
       {/* pins menu */}
       {selectedPin === 0 ? (
         <Grid item sx={{ mt: "22px", px: "8px" }}>
@@ -249,6 +267,7 @@ export default function Sidebar0() {
           />
         </Grid>
       )}
+      {/* </Resizable> */}
       <Grid item sx={{ mt: "22px" }}>
         <Divider />
       </Grid>
