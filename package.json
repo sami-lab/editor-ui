@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
+    "@monaco-editor/react": "^4.4.6",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "latest",
     "re-resizable": "^6.9.9",
