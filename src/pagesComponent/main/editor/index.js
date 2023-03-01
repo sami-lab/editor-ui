@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { v4 as uuidv4 } from "uuid";
+import ResizeEditor from "./resizeEditor";
 const sampleFiles = [
   {
     id: uuidv4(),
@@ -261,30 +262,7 @@ export default function index() {
       {selectedFile && (
         <Grid item sx={{ width: "100%", flex: 1 }}>
           {/* <div contentEditable  style={{ height: "100%", border: 0 }} /> */}
-          <TextField
-            multiline
-            value={selectedFile.content}
-            sx={{
-              height: "100%",
-              width: "100%",
-              "& .MuiOutlinedInput-root": {
-                height: "100%",
-              },
-              "& .MuiOutlinedInput-notchedOutline": {
-                border: 0,
-              },
-            }}
-            onChange={(e) => {
-              setFiles((fil) =>
-                fil.map((f) => {
-                  if (f.id === selectedFile.id) {
-                    f.content = e.target.value;
-                  }
-                  return f;
-                })
-              );
-            }}
-          />
+          <ResizeEditor />
         </Grid>
       )}
     </Grid>

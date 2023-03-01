@@ -16,6 +16,7 @@
     "re-resizable": "^6.9.9",
     "react": "latest",
     "react-dom": "latest",
+    "react-resize-detector": "^8.0.4",
     "react-scripts": "latest",
     "uuid": "^9.0.0"
   },
