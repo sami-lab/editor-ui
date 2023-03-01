@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Grid,
   Tabs,
@@ -34,7 +34,10 @@ const sampleFiles = [
   },
 ];
 
-export default function index() {
+export default function index({ resultsHeight }) {
+  const tabsRef = useRef(null);
+  const buttonRef = useRef(null);
+  const [editorHeight, setEditorHeight] = useState("100%");
   const theme = useTheme();
   const [files, setFiles] = useState(sampleFiles);
   const [selectedFile, setSelectedFile] = useState(sampleFiles[0]);
@@ -71,10 +74,23 @@ export default function index() {
   const savedAtHandler = () => {};
   const saveHandler = () => {};
   const runHandler = () => {};
+
+  useEffect(() => {
+    console.log(
+      tabsRef.current.clientHeight,
+      buttonRef.current?.clientHeight,
+      resultsHeight,
+      "======================--=",
+      `calc(100vh - 87.7px - ${tabsRef.current.clientHeight}px - ${buttonRef.current?.clientHeight}px - ${resultsHeight}px)`
+    );
+    setEditorHeight(
+      `calc(100vh - 87.7px - ${tabsRef.current.clientHeight}px - ${buttonRef.current?.clientHeight}px - ${resultsHeight}px)`
+    );
+  }, [resultsHeight]);
   return (
     <Grid container direction={"column"} style={{ height: "100%" }}>
       {/* tabs */}
-      <Grid item sx={{ width: "100%" }}>
+      <Grid item ref={tabsRef} sx={{ width: "100%" }}>
         <Tabs
           value={selectedFile.id}
           onChange={(event, newValue) => {
@@ -195,6 +211,7 @@ export default function index() {
               p: "7px 20px",
             }}
             gap={"12px"}
+            ref={buttonRef}
           >
             <Grid item>
               <Button
@@ -262,7 +279,7 @@ export default function index() {
       {selectedFile && (
         <Grid item sx={{ width: "100%", flex: 1 }}>
           {/* <div contentEditable  style={{ height: "100%", border: 0 }} /> */}
-          <ResizeEditor />
+          <ResizeEditor height={editorHeight} />
         </Grid>
       )}
     </Grid>

@@ -239,7 +239,13 @@ export default function index() {
         <Header />
       </Grid>
       {/* table */}
-      <Grid item style={{ width: "100%", height: "calc(100vh - 87.7px)" }}>
+      <Grid
+        item
+        style={{
+          width: "100%",
+          height: "calc(100vh - 87.7px)",
+        }}
+      >
         <Grid container wrap='nowrap' style={{ height: "100%" }}>
           {/* for sidebar */}
           {showNavigator && (
@@ -257,7 +263,16 @@ export default function index() {
             </Grid>
           )}
           {/* for editor, results */}
-          <Grid item sx={{ display: "flex", flex: 1, overflowX: "auto" }}>
+          <Grid
+            item
+            sx={{
+              display: "flex",
+              flex: 1,
+              overflowX: "auto",
+              overflowY: "hidden",
+              maxHeight: "calc(100vh - 87.7px)",
+            }}
+          >
             <Grid
               container
               direction={"column"}
@@ -267,7 +282,7 @@ export default function index() {
               {/* editor */}
               {showEditor && (
                 <Grid item sx={{ width: "100%", flex: 1 }}>
-                  <Editor />
+                  <Editor resultsHeight={resultsHeight} />
                 </Grid>
               )}
               {/* hide and show */}
@@ -285,6 +300,7 @@ export default function index() {
                       top: true,
                       bottom: false,
                     }}
+                    minHeight='50px'
                     maxHeight={showEditor ? "60vh" : "calc(100vh - 87.7px)"}
                     onResizeStop={(e, direction, ref, d) => {
                       setResultsHeight((w) => w + d.height);
