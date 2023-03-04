@@ -5,6 +5,7 @@ import Navigator from "../../pagesComponent/main/navigator";
 import Editor from "../../pagesComponent/main/editor/";
 import Results from "../../pagesComponent/main/results/";
 import Database from "../../pagesComponent/main/database/";
+import ChatBox from "../../pagesComponent/main/chat";
 
 import { Resizable } from "re-resizable";
 
@@ -281,8 +282,9 @@ export default function index() {
             >
               {/* editor */}
               {showEditor && (
-                <Grid item sx={{ width: "100%", flex: 1 }}>
-                  <Editor resultsHeight={resultsHeight} />
+                <Grid item sx={{ width: "100%", flex: 1, overflowY: "auto" }}>
+                  {/* <Editor resultsHeight={resultsHeight} /> */}
+                  <ChatBox />
                 </Grid>
               )}
               {/* hide and show */}
