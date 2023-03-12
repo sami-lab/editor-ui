@@ -283,8 +283,8 @@ export default function index() {
               {/* editor */}
               {showEditor && (
                 <Grid item sx={{ width: "100%", flex: 1, overflowY: "auto" }}>
-                  {/* <Editor resultsHeight={resultsHeight} /> */}
-                  <ChatBox />
+                  <Editor resultsHeight={resultsHeight} />
+                  {/* <ChatBox /> */}
                 </Grid>
               )}
               {/* hide and show */}
