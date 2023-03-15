@@ -6,6 +6,8 @@ import Editor from "../../pagesComponent/main/editor/";
 import Results from "../../pagesComponent/main/results/";
 import Database from "../../pagesComponent/main/database/";
 import ChatBox from "../../pagesComponent/main/chat";
+import EditIcon from '@mui/icons-material/Edit';
+import ChatIcon from '@mui/icons-material/Chat';
 
 import { Resizable } from "re-resizable";
 
@@ -19,9 +21,43 @@ export default function index() {
   const [resultsHeight, setResultsHeight] = React.useState(databaseMinHeight);
 
   const [showNavigator, setShowNavigator] = useState(true);
-  const [showEditor, setShowEditor] = useState(true);
   const [showResult, setShowResult] = useState(true);
   const [showDatabase, setShowDatabase] = useState(true);
+
+  const [showEditor, setShowEditor] = useState(true);
+  const [showChat, setShowChat] = useState(false);
+  const onEditorTabClick = () => {
+    if (showEditor) {
+        setShowEditor(false);
+    } else {
+        setShowEditor(true);
+        setShowChat(false);
+    }
+};
+
+const onChatTabClick = () => {
+    if (showChat) {
+        setShowChat(false);
+    } else {
+        setShowChat(true);
+        setShowEditor(false);
+    }
+};
+
+const showEditorOrChat = () => {
+  return showEditor || showChat;
+};
+
+const displayEditorOrChat = () => {
+  if (showEditor) {
+      return <Editor resultsHeight={resultsHeight} />
+  } else if (showChat) {
+      return <ChatBox/>;
+  } else {
+      return <div/>;
+  }
+};
+
 
   const showHideTabs = (
     <Grid
@@ -74,40 +110,50 @@ export default function index() {
             </Button>
           </Grid>
           <Grid item>
-            <Button
-              startIcon={
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='12'
-                  height='12'
-                  fill='none'
-                  viewBox='0 0 12 12'
-                >
-                  <path
-                    fill={showEditor ? "#fff" : theme.palette.primary.main}
-                    d='M11.086 3.102L10.02 4.168 7.832 1.981 8.898.914a.556.556 0 01.41-.164c.165 0 .301.055.41.164l1.368 1.367c.11.11.164.246.164.41 0 .165-.055.301-.164.41zM.75 9.062L7.203 2.61l2.188 2.188-6.454 6.453H.75V9.063z'
-                  ></path>
-                </svg>
-              }
-              sx={{
-                fontWeight: 500,
-                fontSize: "12px",
-                color: showEditor ? "#fff" : theme.palette.primary.main,
-                background: showEditor
-                  ? theme.palette.primary.main
-                  : "transparent",
-                "&:hover": {
-                  color: showEditor ? "#fff" : theme.palette.primary.main,
-                  background: showEditor
-                    ? theme.palette.primary.main
-                    : "transparent",
-                },
-                px: "20px",
-              }}
-              onClick={() => setShowEditor((s) => !s)}
-            >
-              Editor
-            </Button>
+          <Button
+                            startIcon={<EditIcon/>}
+                            sx={{
+                                fontWeight: 500,
+                                fontSize: '12px',
+                                color: showEditor ? '#fff' : theme.palette.primary.main,
+                                background: showEditor
+                                    ? theme.palette.primary.main
+                                    : 'transparent',
+                                '&:hover': {
+                                    color: showEditor ? '#fff' : theme.palette.primary.main,
+                                    background: showEditor
+                                        ? theme.palette.primary.main
+                                        : 'transparent',
+                                },
+                                px: '20px',
+                            }}
+                            onClick={onEditorTabClick}
+                        >
+                            Editor
+                        </Button>
+          </Grid>
+          <Grid item>
+          <Button
+                            startIcon={<ChatIcon/>}
+                            sx={{
+                                fontWeight: 500,
+                                fontSize: '12px',
+                                color: showChat ? '#fff' : theme.palette.primary.main,
+                                background: showChat
+                                    ? theme.palette.primary.main
+                                    : 'transparent',
+                                '&:hover': {
+                                    color: showChat ? '#fff' : theme.palette.primary.main,
+                                    background: showChat
+                                        ? theme.palette.primary.main
+                                        : 'transparent',
+                                },
+                                px: '20px',
+                            }}
+                            onClick={onChatTabClick}
+                        >
+                            Chat
+                        </Button>
           </Grid>
           <Grid item>
             <Button
@@ -281,12 +327,11 @@ export default function index() {
               sx={{ height: "100%", width: "100%" }}
             >
               {/* editor */}
-              {showEditor && (
-                // <Grid item sx={{ width: "100%", flex: 1, overflowY: "auto" }}>
-                <Editor resultsHeight={resultsHeight} />
-                // {/* <ChatBox /> */}
-                // </Grid>
-              )}
+              {showEditorOrChat() && (
+                                <Grid item sx={{ width: '100%', flex: 1, overflowY: 'auto' }}>
+                                    {displayEditorOrChat()}
+                                </Grid>
+                            )}
               {/* hide and show */}
               <Grid item sx={{ width: "100%" }}>
                 {showHideTabs}
@@ -303,14 +348,14 @@ export default function index() {
                       bottom: false,
                     }}
                     minHeight='50px'
-                    maxHeight={showEditor ? "60vh" : "calc(100vh - 87.7px)"}
+                    maxHeight={showEditorOrChat ? "60vh" : "calc(100vh - 87.7px)"}
                     onResizeStop={(e, direction, ref, d) => {
                       setResultsHeight((w) => w + d.height);
                     }}
                   >
                     <Results
                       resultsHeight={resultsHeight}
-                      showEditor={showEditor}
+                      showEditorOrChat={showEditorOrChat}
                     />
                   </Resizable>
                 </Grid>
