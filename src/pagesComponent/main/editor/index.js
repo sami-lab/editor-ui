@@ -88,7 +88,12 @@ export default function index({ resultsHeight }) {
     );
   }, [resultsHeight]);
   return (
-    <Grid container direction={"column"} style={{ height: "100%" }}>
+    <Grid
+      container
+      direction={"column"}
+      flexWrap='nowrap'
+      style={{ height: "100%" }}
+    >
       {/* tabs */}
       <Grid item ref={tabsRef} sx={{ width: "100%" }}>
         <Tabs
