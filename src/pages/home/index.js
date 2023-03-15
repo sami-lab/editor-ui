@@ -6,8 +6,8 @@ import Editor from "../../pagesComponent/main/editor/";
 import Results from "../../pagesComponent/main/results/";
 import Database from "../../pagesComponent/main/database/";
 import ChatBox from "../../pagesComponent/main/chat";
-import EditIcon from '@mui/icons-material/Edit';
-import ChatIcon from '@mui/icons-material/Chat';
+import EditIcon from "@mui/icons-material/Edit";
+import ChatIcon from "@mui/icons-material/Chat";
 
 import { Resizable } from "re-resizable";
 
@@ -28,36 +28,35 @@ export default function index() {
   const [showChat, setShowChat] = useState(false);
   const onEditorTabClick = () => {
     if (showEditor) {
-        setShowEditor(false);
+      setShowEditor(false);
     } else {
-        setShowEditor(true);
-        setShowChat(false);
+      setShowEditor(true);
+      setShowChat(false);
     }
-};
+  };
 
-const onChatTabClick = () => {
+  const onChatTabClick = () => {
     if (showChat) {
-        setShowChat(false);
+      setShowChat(false);
     } else {
-        setShowChat(true);
-        setShowEditor(false);
+      setShowChat(true);
+      setShowEditor(false);
     }
-};
+  };
 
-const showEditorOrChat = () => {
-  return showEditor || showChat;
-};
+  const showEditorOrChat = () => {
+    return showEditor || showChat;
+  };
 
-const displayEditorOrChat = () => {
-  if (showEditor) {
-      return <Editor resultsHeight={resultsHeight} />
-  } else if (showChat) {
-      return <ChatBox/>;
-  } else {
-      return <div/>;
-  }
-};
-
+  const displayEditorOrChat = () => {
+    if (showEditor) {
+      return <Editor resultsHeight={resultsHeight} />;
+    } else if (showChat) {
+      return <ChatBox />;
+    } else {
+      return <div />;
+    }
+  };
 
   const showHideTabs = (
     <Grid
@@ -110,50 +109,50 @@ const displayEditorOrChat = () => {
             </Button>
           </Grid>
           <Grid item>
-          <Button
-                            startIcon={<EditIcon/>}
-                            sx={{
-                                fontWeight: 500,
-                                fontSize: '12px',
-                                color: showEditor ? '#fff' : theme.palette.primary.main,
-                                background: showEditor
-                                    ? theme.palette.primary.main
-                                    : 'transparent',
-                                '&:hover': {
-                                    color: showEditor ? '#fff' : theme.palette.primary.main,
-                                    background: showEditor
-                                        ? theme.palette.primary.main
-                                        : 'transparent',
-                                },
-                                px: '20px',
-                            }}
-                            onClick={onEditorTabClick}
-                        >
-                            Editor
-                        </Button>
+            <Button
+              startIcon={<EditIcon />}
+              sx={{
+                fontWeight: 500,
+                fontSize: "12px",
+                color: showEditor ? "#fff" : theme.palette.primary.main,
+                background: showEditor
+                  ? theme.palette.primary.main
+                  : "transparent",
+                "&:hover": {
+                  color: showEditor ? "#fff" : theme.palette.primary.main,
+                  background: showEditor
+                    ? theme.palette.primary.main
+                    : "transparent",
+                },
+                px: "20px",
+              }}
+              onClick={onEditorTabClick}
+            >
+              Editor
+            </Button>
           </Grid>
           <Grid item>
-          <Button
-                            startIcon={<ChatIcon/>}
-                            sx={{
-                                fontWeight: 500,
-                                fontSize: '12px',
-                                color: showChat ? '#fff' : theme.palette.primary.main,
-                                background: showChat
-                                    ? theme.palette.primary.main
-                                    : 'transparent',
-                                '&:hover': {
-                                    color: showChat ? '#fff' : theme.palette.primary.main,
-                                    background: showChat
-                                        ? theme.palette.primary.main
-                                        : 'transparent',
-                                },
-                                px: '20px',
-                            }}
-                            onClick={onChatTabClick}
-                        >
-                            Chat
-                        </Button>
+            <Button
+              startIcon={<ChatIcon />}
+              sx={{
+                fontWeight: 500,
+                fontSize: "12px",
+                color: showChat ? "#fff" : theme.palette.primary.main,
+                background: showChat
+                  ? theme.palette.primary.main
+                  : "transparent",
+                "&:hover": {
+                  color: showChat ? "#fff" : theme.palette.primary.main,
+                  background: showChat
+                    ? theme.palette.primary.main
+                    : "transparent",
+                },
+                px: "20px",
+              }}
+              onClick={onChatTabClick}
+            >
+              Chat
+            </Button>
           </Grid>
           <Grid item>
             <Button
@@ -328,10 +327,18 @@ const displayEditorOrChat = () => {
             >
               {/* editor */}
               {showEditorOrChat() && (
-                                <Grid item sx={{ width: '100%', flex: 1, overflowY: 'auto' }}>
-                                    {displayEditorOrChat()}
-                                </Grid>
-                            )}
+                <Grid
+                  item
+                  sx={{
+                    width: "100%",
+                    flex: 1,
+                    overflowY: "auto",
+                    overflowX: "hidden",
+                  }}
+                >
+                  {displayEditorOrChat()}
+                </Grid>
+              )}
               {/* hide and show */}
               <Grid item sx={{ width: "100%" }}>
                 {showHideTabs}
@@ -348,7 +355,9 @@ const displayEditorOrChat = () => {
                       bottom: false,
                     }}
                     minHeight='50px'
-                    maxHeight={showEditorOrChat ? "60vh" : "calc(100vh - 87.7px)"}
+                    maxHeight={
+                      showEditorOrChat ? "60vh" : "calc(100vh - 87.7px)"
+                    }
                     onResizeStop={(e, direction, ref, d) => {
                       setResultsHeight((w) => w + d.height);
                     }}
