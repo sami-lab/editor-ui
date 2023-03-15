@@ -47,7 +47,6 @@ export default function index() {
   const showEditorOrChat = () => {
     return showEditor || showChat;
   };
-
   const displayEditorOrChat = () => {
     if (showEditor) {
       return <Editor resultsHeight={resultsHeight} />;
@@ -356,7 +355,7 @@ export default function index() {
                     }}
                     minHeight='50px'
                     maxHeight={
-                      showEditorOrChat ? "60vh" : "calc(100vh - 87.7px)"
+                      showEditorOrChat() ? "60vh" : "calc(100vh - 87.7px)"
                     }
                     onResizeStop={(e, direction, ref, d) => {
                       setResultsHeight((w) => w + d.height);
@@ -364,7 +363,7 @@ export default function index() {
                   >
                     <Results
                       resultsHeight={resultsHeight}
-                      showEditorOrChat={showEditorOrChat}
+                      showEditor={showEditorOrChat()}
                     />
                   </Resizable>
                 </Grid>

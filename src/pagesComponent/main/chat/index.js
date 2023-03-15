@@ -56,7 +56,15 @@ const ChatBox = () => {
           height: "100%",
         }}
       >
-        <Grid item sx={{ maxHeight: "100%", overflowY: "auto", flex: 1 }}>
+        <Grid
+          item
+          sx={{
+            maxHeight: "100%",
+            minHeight: "150px",
+            overflowY: "auto",
+            flex: 1,
+          }}
+        >
           <TextsContainer data={data} />
         </Grid>
         <Divider />
