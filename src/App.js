@@ -2,6 +2,8 @@ import * as React from "react";
 
 import Main from "./pages/home/";
 import Chat from "./pages/chat/";
+import Login from "./pages/login/";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 export default function App() {
@@ -13,6 +15,10 @@ export default function App() {
     {
       path: "/chat",
       element: <Chat />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
     },
   ]);
   return <RouterProvider router={router} />;
