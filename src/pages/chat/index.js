@@ -635,7 +635,7 @@ export default function Index() {
           </Grid>
         </Grid>
         <Alert
-          sx={{ mt: "25px" }}
+          sx={{ mt: "25px", width: "fit-content", alignItems: "center" }}
           severity='error'
           action={
             <Button
