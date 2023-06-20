@@ -20,6 +20,7 @@ import FiberManualRecordOutlinedIcon from "@mui/icons-material/FiberManualRecord
 import AddIcon from "@mui/icons-material/Add";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import SendText from "./sendText";
+import AlertDialog from "./alertDialog";
 export default function Index() {
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -29,6 +30,7 @@ export default function Index() {
 
   const [showOpenChats, setShowOpenChats] = useState(false);
   const [showRecentClosedChats, setShowRecentClosedChats] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {
     if (matchesSM) {
@@ -509,6 +511,13 @@ export default function Index() {
   return (
     <Grid container wrap='nowrap' sx={{ minHeight: "100vh" }}>
       {sidebar}
+      <AlertDialog
+        open={showAlert}
+        onClose={() => setShowAlert(false)}
+        message='Max Open Chats Reached for Current Plan'
+        description='Please end a previous chat or upgrade your plan.'
+        buttonText='Upgrade Plan'
+      />
       <Grid item sx={{ width: showSidebar ? `${sideBarWidth}` : 0 }} />
       {/* for main */}
       <Grid
