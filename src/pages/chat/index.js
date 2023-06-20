@@ -103,6 +103,7 @@ export default function Index() {
       anchor='left'
       open={showSidebar}
       onClose={() => setShowSidebar(false)}
+      onOpen={() => setShowSidebar(true)}
     >
       <Grid container direction='column'>
         {/* logo */}
@@ -577,8 +578,11 @@ export default function Index() {
   const topTenUsers = (
     <Grid
       container
+      direction={{ md: "row", xs: "column" }}
+      wrap='nowrap'
       gap='22px'
       sx={{
+        padding: { md: 0, xs: px.xs },
         height: "100%",
         mb: "50px",
         mt: "25px",
@@ -589,120 +593,144 @@ export default function Index() {
         <img src='/dev/favicon.png' />
       </Grid>
       <Grid item sx={{ flex: 1 }}>
-        <Typography variant='subtitle1' fontSize='20px' sx={{ mt: "10px" }}>
-          To find out how many accounts you have, you can use the following
-          query
-        </Typography>
-
-        <TableContainer
-          component={Paper}
-          sx={{
-            mt: "10px",
-            borderRadius: "10px",
-            maxHeight: "340px",
-            overflowY: "auto",
-          }}
-        >
-          <Table sx={{ minWidth: 650 }} aria-label='simple table'>
-            <TableHead sx={tableHeadSx}>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Industry</TableCell>
-                <TableCell>City</TableCell>
-                <TableCell>State</TableCell>
-                <TableCell>Segment</TableCell>
-                <TableCell>Owner ID</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {sampleData.map((row) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component='th' scope='row'>
-                    {row.id}
-                  </TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.industry}</TableCell>
-                  <TableCell>{row.city}</TableCell>
-                  <TableCell>{row.state}</TableCell>
-                  <TableCell>{row.segment}</TableCell>
-                  <TableCell>{row.ownerId}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        {/* view or download CSV */}
-        <Grid container gap='10px' alignItems='center' sx={{ mt: "20px" }}>
-          <Grid item>
-            <ErrorIcon />
-          </Grid>
-          <Grid item>
-            <Typography variant='body2'>
-              Only 1000 rows are shown,{" "}
-              <span style={{ color: "#213BC2" }}>Click here</span> to view or
-              download CSV
+        <Grid container direction='column'>
+          {/* heading */}
+          <Grid item sx={{ width: "100%" }}>
+            <Typography
+              variant='subtitle1'
+              fontSize='20px'
+              sx={{ mt: { md: "10px", xs: 0 } }}
+            >
+              To find out how many accounts you have, you can use the following
+              query
             </Typography>
           </Grid>
-        </Grid>
-        {/* Show Query  Show Chart */}
-        <Grid container gap='15px' sx={{ mt: "15px" }}>
-          <Grid item>
-            <Button
-              color='inherit'
-              size='small'
+          {/* table */}
+          <Grid item sx={{ width: "100%" }}>
+            <TableContainer
+              component={Paper}
               sx={{
-                color: "#000",
-                background: showQuery === true ? "#A9CBFF" : "#DCDCDC",
-                padding: "10px 20px",
-                textTransform: "none",
+                mt: "10px",
+                borderRadius: "10px",
+                maxHeight: "340px",
+                overflowY: "auto",
               }}
-              onClick={() => setShowQuery((q) => (q === true ? "" : true))}
             >
-              Show Query
-            </Button>
+              <Table
+                sx={{ minWidth: { md: 650, xs: "unset" } }}
+                aria-label='simple table'
+              >
+                <TableHead sx={tableHeadSx}>
+                  <TableRow>
+                    <TableCell>ID</TableCell>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Industry</TableCell>
+                    <TableCell>City</TableCell>
+                    <TableCell>State</TableCell>
+                    <TableCell>Segment</TableCell>
+                    <TableCell>Owner ID</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {sampleData.map((row) => (
+                    <TableRow
+                      key={row.id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component='th' scope='row'>
+                        {row.id}
+                      </TableCell>
+                      <TableCell>{row.name}</TableCell>
+                      <TableCell>{row.industry}</TableCell>
+                      <TableCell>{row.city}</TableCell>
+                      <TableCell>{row.state}</TableCell>
+                      <TableCell>{row.segment}</TableCell>
+                      <TableCell>{row.ownerId}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Grid>
-          <Grid item>
-            <Button
-              color='inherit'
-              size='small'
-              sx={{
-                color: "#000",
-                background: showQuery === false ? "#A9CBFF" : "#DCDCDC",
-                padding: "10px 20px",
-                textTransform: "none",
-              }}
-              onClick={() => setShowQuery((q) => (q === false ? "" : false))}
+          {/* view or download CSV */}
+          <Grid item sx={{ width: "100%" }}>
+            <Grid container gap='10px' alignItems='center' sx={{ mt: "20px" }}>
+              <Grid item>
+                <ErrorIcon />
+              </Grid>
+              <Grid item>
+                <Typography variant='body2'>
+                  Only 1000 rows are shown,{" "}
+                  <span style={{ color: "#213BC2" }}>Click here</span> to view
+                  or download CSV
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          {/* Show Query  Show Chart */}
+          <Grid item sx={{ width: "100%" }}>
+            <Grid container gap='15px' sx={{ mt: "15px" }}>
+              <Grid item>
+                <Button
+                  color='inherit'
+                  size='small'
+                  sx={{
+                    color: "#000",
+                    background: showQuery === true ? "#A9CBFF" : "#DCDCDC",
+                    padding: "10px 20px",
+                    textTransform: "none",
+                  }}
+                  onClick={() => setShowQuery((q) => (q === true ? "" : true))}
+                >
+                  Show Query
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  color='inherit'
+                  size='small'
+                  sx={{
+                    color: "#000",
+                    background: showQuery === false ? "#A9CBFF" : "#DCDCDC",
+                    padding: "10px 20px",
+                    textTransform: "none",
+                  }}
+                  onClick={() =>
+                    setShowQuery((q) => (q === false ? "" : false))
+                  }
+                >
+                  Show Chart
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item sx={{ width: "100%" }}>
+            {showQuery === true && renderQuery}
+            {showQuery === false && renderChart}
+          </Grid>
+          <Grid item sx={{ width: "100%" }}>
+            <Alert
+              sx={{ mt: "25px", width: "fit-content", alignItems: "center" }}
+              severity='error'
+              action={
+                <Button
+                  color='inherit'
+                  size='small'
+                  sx={{
+                    color: "#fff",
+                    background: "#F0671A",
+                    padding: "10px 20px",
+                    textTransform: "none",
+                  }}
+                >
+                  Human Help
+                </Button>
+              }
             >
-              Show Chart
-            </Button>
+              We are not confident in this answer, but recommended verification
+            </Alert>
           </Grid>
         </Grid>
-        {showQuery === true && renderQuery}
-        {showQuery === false && renderChart}
-        <Alert
-          sx={{ mt: "25px", width: "fit-content", alignItems: "center" }}
-          severity='error'
-          action={
-            <Button
-              color='inherit'
-              size='small'
-              sx={{
-                color: "#fff",
-                background: "#F0671A",
-                padding: "10px 20px",
-                textTransform: "none",
-              }}
-            >
-              Human Help
-            </Button>
-          }
-        >
-          We are not confident in this answer, but recommended verification
-        </Alert>
       </Grid>
     </Grid>
   );
@@ -773,8 +801,11 @@ export default function Index() {
       />
 
       {/* for sidebar */}
-      <Grid item style={{ display: "flex" }}>
-        <Resizable
+      <Grid
+        item
+        style={{ display: "flex", width: showSidebar ? `${sideBarWidth}` : 0 }}
+      >
+        {/* <Resizable
           style={{ zIndex: 1100 }}
           size={{ width: showSidebar ? `${sideBarWidth}` : 0, height: "100%" }}
           enable={{ right: true, left: false, top: false, bottom: false }}
@@ -783,7 +814,8 @@ export default function Index() {
           }}
         >
           {sidebar}
-        </Resizable>
+        </Resizable> */}
+        {sidebar}
       </Grid>
       {/* for main */}
       <Grid
@@ -827,7 +859,7 @@ export default function Index() {
             />
             {/* avatar */}
             <Grid item sx={{ width: "100%", p: px, mt: "19px" }}>
-              <Grid container alignItems='center' gap='24px'>
+              <Grid container wrap='nowrap' alignItems='center' gap='24px'>
                 <Grid item>
                   <Avatar
                     alt='Name'
@@ -835,7 +867,7 @@ export default function Index() {
                     style={{ width: "46px", height: "46px" }}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item sx={{ flex: 1 }}>
                   <Typography variant='subtitle1' fontSize='20px'>
                     List my top 10 accounts
                   </Typography>
@@ -849,15 +881,15 @@ export default function Index() {
                 width: "100%",
                 flex: 1,
                 mt: { md: "20px", xs: "40px" },
-                p: px,
+                //p: px,
                 background: "#F0F0F0",
               }}
             >
               {topTenUsers}
             </Grid>
             {/* input */}
-            <Grid item sx={{ mt: "20px", p: px }}>
-              <Typography variant='body2'>
+            <Grid item sx={{ width: "100%", mt: "20px", p: px }}>
+              <Typography variant='body2' display='block'>
                 Need Human Help In query?{" "}
                 <span style={{ color: "#213BC2" }}>Click here</span>
               </Typography>
