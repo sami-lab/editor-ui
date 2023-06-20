@@ -31,6 +31,7 @@ import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import CheckIcon from "@mui/icons-material/Check";
 import SendText from "./sendText";
 import AlertDialog from "./alertDialog";
+import { Resizable } from "re-resizable";
 
 const sampleData = [
   {
@@ -64,7 +65,9 @@ const sampleData = [
 export default function Index() {
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
-  const sideBarWidth = 356;
+  const sideBarMinWidth = 356;
+  const [sideBarWidth, setSideBarWidth] = React.useState(sideBarMinWidth);
+
   const [showSidebar, setShowSidebar] = useState(true);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -85,12 +88,12 @@ export default function Index() {
   const sidebar = (
     <SwipeableDrawer
       sx={{
-        width: sideBarWidth,
+        width: "inherit",
         flexShrink: 0,
 
         "& .MuiDrawer-paper": {
           padding: "36px",
-          width: { md: sideBarWidth, xs: "80%" },
+          width: { md: "inherit", xs: "80%" },
           boxSizing: "border-box",
           background: "#000",
           color: "#D8D6D6",
@@ -761,7 +764,6 @@ export default function Index() {
 
   return (
     <Grid container wrap='nowrap' sx={{ minHeight: "100vh" }}>
-      {sidebar}
       <AlertDialog
         open={showAlert}
         onClose={() => setShowAlert(false)}
@@ -769,7 +771,20 @@ export default function Index() {
         description='Please end a previous chat or upgrade your plan.'
         buttonText='Upgrade Plan'
       />
-      <Grid item sx={{ width: showSidebar ? `${sideBarWidth}` : 0 }} />
+
+      {/* for sidebar */}
+      <Grid item style={{ display: "flex" }}>
+        <Resizable
+          style={{ zIndex: 1100 }}
+          size={{ width: showSidebar ? `${sideBarWidth}` : 0, height: "100%" }}
+          enable={{ right: true, left: false, top: false, bottom: false }}
+          onResizeStop={(e, direction, ref, d) => {
+            setSideBarWidth((w) => w + d.width);
+          }}
+        >
+          {sidebar}
+        </Resizable>
+      </Grid>
       {/* for main */}
       <Grid
         item
