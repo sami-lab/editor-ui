@@ -93,7 +93,7 @@ export default function Index() {
 
         "& .MuiDrawer-paper": {
           padding: "36px",
-          width: { md: "inherit", xs: "80%" },
+          width: "inherit",
           boxSizing: "border-box",
           background: "#000",
           color: "#D8D6D6",
@@ -582,7 +582,7 @@ export default function Index() {
       wrap='nowrap'
       gap='22px'
       sx={{
-        padding: { md: 0, xs: px.xs },
+        padding: px,
         height: "100%",
         mb: "50px",
         mt: "25px",
@@ -616,10 +616,7 @@ export default function Index() {
                 overflowY: "auto",
               }}
             >
-              <Table
-                sx={{ minWidth: { md: 650, xs: "unset" } }}
-                aria-label='simple table'
-              >
+              <Table sx={{ minWidth: 650 }} aria-label='simple table'>
                 <TableHead sx={tableHeadSx}>
                   <TableRow>
                     <TableCell>ID</TableCell>
@@ -635,7 +632,9 @@ export default function Index() {
                   {sampleData.map((row) => (
                     <TableRow
                       key={row.id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                      }}
                     >
                       <TableCell component='th' scope='row'>
                         {row.id}
@@ -654,7 +653,13 @@ export default function Index() {
           </Grid>
           {/* view or download CSV */}
           <Grid item sx={{ width: "100%" }}>
-            <Grid container gap='10px' alignItems='center' sx={{ mt: "20px" }}>
+            <Grid
+              container
+              wrap='nowrap'
+              gap='10px'
+              alignItems='center'
+              sx={{ mt: "20px" }}
+            >
               <Grid item>
                 <ErrorIcon />
               </Grid>
@@ -803,19 +808,26 @@ export default function Index() {
       {/* for sidebar */}
       <Grid
         item
-        style={{ display: "flex", width: showSidebar ? `${sideBarWidth}` : 0 }}
+        style={{
+          display: "flex",
+          width: showSidebar ? `${sideBarWidth}px` : 0,
+        }}
       >
-        {/* <Resizable
-          style={{ zIndex: 1100 }}
-          size={{ width: showSidebar ? `${sideBarWidth}` : 0, height: "100%" }}
-          enable={{ right: true, left: false, top: false, bottom: false }}
-          onResizeStop={(e, direction, ref, d) => {
-            setSideBarWidth((w) => w + d.width);
-          }}
-        >
-          {sidebar}
-        </Resizable> */}
-        {sidebar}
+        {showSidebar && (
+          <Resizable
+            style={{ zIndex: 1100 }}
+            size={{
+              width: showSidebar ? `${sideBarWidth}` : 0,
+              height: "100%",
+            }}
+            enable={{ right: true, left: false, top: false, bottom: false }}
+            onResizeStop={(e, direction, ref, d) => {
+              setSideBarWidth((w) => w + d.width);
+            }}
+          >
+            {sidebar}
+          </Resizable>
+        )}
       </Grid>
       {/* for main */}
       <Grid
