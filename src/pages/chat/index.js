@@ -71,6 +71,7 @@ export default function Index() {
   const [showOpenChats, setShowOpenChats] = useState(false);
   const [showRecentClosedChats, setShowRecentClosedChats] = useState(false);
   const [chatAbout, setShowChatAbout] = useState(false);
+  const [showQuery, setShowQuery] = useState("");
 
   const [showAlert, setShowAlert] = useState(true);
 
@@ -555,6 +556,16 @@ export default function Index() {
     </Grid>
   );
 
+  const renderQuery = (
+    <Grid contatiner component={Paper} sx={{ p: "20px", mt: "15px" }}>
+      Query
+    </Grid>
+  );
+  const renderChart = (
+    <Grid contatiner component={Paper} sx={{ p: "20px", mt: "15px" }}>
+      Chart
+    </Grid>
+  );
   const px = { md: "0px 32px 0px 89px", xs: "0px 30px" };
 
   const tableHeadSx = {
@@ -634,6 +645,41 @@ export default function Index() {
             </Typography>
           </Grid>
         </Grid>
+        {/* Show Query  Show Chart */}
+        <Grid container gap='15px' sx={{ mt: "15px" }}>
+          <Grid item>
+            <Button
+              color='inherit'
+              size='small'
+              sx={{
+                color: "#000",
+                background: showQuery === true ? "#A9CBFF" : "#DCDCDC",
+                padding: "10px 20px",
+                textTransform: "none",
+              }}
+              onClick={() => setShowQuery((q) => (q === true ? "" : true))}
+            >
+              Show Query
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              color='inherit'
+              size='small'
+              sx={{
+                color: "#000",
+                background: showQuery === false ? "#A9CBFF" : "#DCDCDC",
+                padding: "10px 20px",
+                textTransform: "none",
+              }}
+              onClick={() => setShowQuery((q) => (q === false ? "" : false))}
+            >
+              Show Chart
+            </Button>
+          </Grid>
+        </Grid>
+        {showQuery === true && renderQuery}
+        {showQuery === false && renderChart}
         <Alert
           sx={{ mt: "25px", width: "fit-content", alignItems: "center" }}
           severity='error'
@@ -796,7 +842,11 @@ export default function Index() {
             </Grid>
             {/* input */}
             <Grid item sx={{ mt: "20px", p: px }}>
-              <Grid container gap={"15px"}>
+              <Typography variant='body2'>
+                Need Human Help In query?{" "}
+                <span style={{ color: "#213BC2" }}>Click here</span>
+              </Typography>
+              <Grid container gap={"15px"} sx={{ mt: "5px" }}>
                 <Grid item sx={{ flex: 1 }}>
                   <SendText onSuccess={() => {}} />
                 </Grid>
